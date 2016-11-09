@@ -1,0 +1,37 @@
+{
+  "name": "FML No Today",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "去掉煎蛋网FML段落开头的\"今天\"和\"today\".",
+  "homepage_url": "http://hlpp.github.io",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "permissions": [
+    "contextMenus",
+    "contentSettings",
+    "storage",
+    "tabs"
+  ],
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_title": "FML No Today",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://jandan.net/*/*/*/fuck-my-life-*"
+      ],
+      "js": [
+        "jquery-2.2.0.min.js",
+        "content_script.js"
+      ]
+    }
+  ]
+}
