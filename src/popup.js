@@ -1,3 +1,4 @@
+"use strict";
 
 document.addEventListener('DOMContentLoaded', function () {
 	var as = document.querySelectorAll('.a');
