@@ -26,18 +26,20 @@ function NoToday() {
 
 		var ps = $('.current-post').next().next().find('p');
 		ps.each(function(index, elem){
-			var childNodes = $(this).get(0).childNodes;
-			var lastNode = childNodes[childNodes.length - 1];
-			if(childNodes.length > 2 && lastNode.nodeType == Node.TEXT_NODE) {
-				self.store[index] = lastNode.nodeValue;
-				removeToday(lastNode);
+			var childNodes = this.childNodes;
+			for(var i = 0; i < childNodes.length; i++) {
+				if(childNodes[i].nodeType == Node.TEXT_NODE) {
+					var node = childNodes[i];
+					self.store[index] = node.nodeValue;
+					removeToday(node);
+				}
 			}
 		});
 		return 0;
 
-		function removeToday(fmlTextNode) {
+		function removeToday(fmlBodyTextNode) {
 			var reg = new RegExp("^今天|today",'i');
-			var str = fmlTextNode.nodeValue.trim();
+			var str = fmlBodyTextNode.nodeValue.trim();
 
 			while(reg.test(str)) {
 				str = str.replace(reg, '');
@@ -46,7 +48,7 @@ function NoToday() {
 			while(str[0] == '，' || str[0] == ',') {
 				str = str.substring(1).trim();
 			}
-			fmlTextNode.nodeValue = str;
+			fmlBodyTextNode.nodeValue = str;
 		}
 	}
 
@@ -57,10 +59,11 @@ function NoToday() {
 
 		var ps = $('.current-post').next().next().find('p');
 		ps.each(function(index, elem){
-			var childNodes = $(this).get(0).childNodes;
-			var lastNode = childNodes[childNodes.length - 1];
-			if(childNodes.length > 2 && lastNode.nodeType == Node.TEXT_NODE) {
-				lastNode.nodeValue = self.store[index];
+			var childNodes = this.childNodes;
+			for(var i = 0; i < childNodes.length; i++) {
+				if(childNodes[i].nodeType == Node.TEXT_NODE) {
+					lastNode.nodeValue = self.store[index];
+				}
 			}
 		});
 		return 0;

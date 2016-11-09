@@ -8,9 +8,9 @@ menu.init();
 // message from content script
 chrome.extension.onMessage.addListener(function(req, sender, respCallback) {
 	if(req.act == 'loadConfig') {
-		respCallback(config);
 		config.load();
 		menu.update();
+		respCallback(config);
 	}
 });
 
@@ -69,7 +69,9 @@ function Menu(config) {
 		});
 
 		function createMenuItem(opts) {
-			opts.documentUrlPatterns = ['http://jandan.net/*/*/*/fuck-my-life-*'];
+			opts.documentUrlPatterns = [
+				"http://jandan.net/*/*/*/fuck-my-life-*",
+				"http://jandan.net/*/*/*/fml-*"];
 			return chrome.contextMenus.create(opts);
 		}
 
