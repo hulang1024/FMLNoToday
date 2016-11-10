@@ -19,6 +19,8 @@ function NoToday() {
 	var self = this;
 	this.store = [];//for reset
 
+	var reg = new RegExp("^今天|today",'i');
+
 	this.remove = function() {
 		if(!this.isFMLPostPage()) {
 			return 1;
@@ -26,11 +28,13 @@ function NoToday() {
 
 		var ps = $('.current-post').next().next().find('p');
 		ps.each(function(index, elem){
-			var childNodes = this.childNodes;
-			for(var i = 0; i < childNodes.length; i++) {
-				if(childNodes[i].nodeType == Node.TEXT_NODE) {
-					var node = childNodes[i];
-					self.store[index] = node.nodeValue;
+			for(var i = 0; i < this.childNodes.length; i++) {
+				var node = this.childNodes[i];
+				if(node.nodeType == Node.TEXT_NODE && reg.test(node.nodeValue.trim())) {
+					var o = {};
+					o.index = i;
+					o.value = node.nodeValue;
+					self.store[index] = o;
 					removeToday(node);
 				}
 			}
@@ -38,7 +42,6 @@ function NoToday() {
 		return 0;
 
 		function removeToday(fmlBodyTextNode) {
-			var reg = new RegExp("^今天|today",'i');
 			var str = fmlBodyTextNode.nodeValue.trim();
 
 			while(reg.test(str)) {
@@ -59,10 +62,10 @@ function NoToday() {
 
 		var ps = $('.current-post').next().next().find('p');
 		ps.each(function(index, elem){
-			var childNodes = this.childNodes;
-			for(var i = 0; i < childNodes.length; i++) {
-				if(childNodes[i].nodeType == Node.TEXT_NODE) {
-					lastNode.nodeValue = self.store[index];
+			for(var i = 0; i < this.childNodes.length; i++) {
+				var node = this.childNodes[i];
+				if(node.nodeType == Node.TEXT_NODE && self.store[index].index == i) {
+					node.nodeValue = self.store[index].value;
 				}
 			}
 		});
