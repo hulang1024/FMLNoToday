@@ -36,6 +36,7 @@ function NoToday() {
 					o.value = node.nodeValue;
 					self.store[index] = o;
 					removeToday(node);
+					break;
 				}
 			}
 		});
@@ -62,10 +63,12 @@ function NoToday() {
 
 		var ps = $('.current-post').next().next().find('p');
 		ps.each(function(index, elem){
-			for(var i = 0; i < this.childNodes.length; i++) {
-				var node = this.childNodes[i];
-				if(node.nodeType == Node.TEXT_NODE && self.store[index].index == i) {
-					node.nodeValue = self.store[index].value;
+			if(self.store[index]) {
+				for(var i = 0; i < this.childNodes.length; i++) {
+					var node = this.childNodes[i];
+					if(node.nodeType == Node.TEXT_NODE && self.store[index].index == i) {
+						node.nodeValue = self.store[index].value;
+					}
 				}
 			}
 		});
