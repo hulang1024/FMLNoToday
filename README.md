@@ -6,7 +6,7 @@
 * https://github.com/hlpp/FMLNoToday/archive/master.zip
 
 ### 安装方法：
-* 第一步. FMLNoToday-master.zip
+* 第一步. 解压FMLNoToday-master.zip
 * 第二步. 进入Chrome浏览器的 扩展程序 界面
   - a. 在地址栏键入: chrome://extensions/
   - b. 设置->扩展程序
